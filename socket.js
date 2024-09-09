@@ -6,10 +6,6 @@ module.exports.initIO = (httpServer) => {
     secure: true,
     reconnect: true,
     rejectUnauthorized: false,
-    cors: {
-      methods: ["GET", "POST"],
-      credentials: true,
-    },
     transports: ["websocket", "polling"], // Ensure both transports are supported
   });
 
