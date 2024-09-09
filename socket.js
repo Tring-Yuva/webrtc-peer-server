@@ -2,7 +2,16 @@ const { Server } = require("socket.io");
 let IO;
 
 module.exports.initIO = (httpServer) => {
-  IO = new Server(httpServer);
+  IO = new Server(httpServer, {
+    secure: true,
+    reconnect: true,
+    rejectUnauthorized: false,
+    cors: {
+      methods: ["GET", "POST"],
+      credentials: true,
+    },
+    transports: ["websocket", "polling"], // Ensure both transports are supported
+  });
 
   IO.use((socket, next) => {
     if (socket.handshake.query) {
