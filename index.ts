@@ -1,8 +1,7 @@
-const path = require("path");
-const { createServer } = require("http");
-
-const express = require("express");
-const { getIO, initIO } = require("./socket");
+import { createServer } from "http";
+import path from "path";
+import SocketService from "./socket";
+import express from "express";
 
 const app = express();
 
@@ -12,9 +11,11 @@ const httpServer = createServer(app);
 
 let port = process.env.PORT || 80;
 
-initIO(httpServer);
+const socketService = new SocketService();
+
+socketService.init(httpServer);
 
 httpServer.listen(port);
 console.log("Server started on ", port);
 
-getIO();
+socketService.getIO();
